@@ -1,0 +1,32 @@
+{% if talent_list %}
+Talent:
+<ul>
+    {% for talent in talent_list %}
+    <li><a href="/account/talent/{{ talent.id }}/">{{ talent.first_name }} {{ talent.last_name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No talents found.</p>
+{% endif %}
+ 
+{% if representative_list %}
+Representative:
+<ul>
+    {% for representative in representative_list %}
+    <li><a href="/account/representative/{{ representative.id }}/">{{ representative.first_name }} {{ representative.last_name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No representatives found.</p>
+{% endif %}
+
+{% if company_list %}
+Company:
+<ul>
+    {% for company in company_list %}
+    <li><a href="/account/company/{{ company.id }}/">{{ company }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No companys found.</p>
+{% endif %}

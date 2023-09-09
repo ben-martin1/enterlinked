@@ -1,0 +1,23 @@
+AGENTS:
+{% if employee_list %}
+    <ul>
+    {% for employee in employee_list %}
+        <li><a href="/account/representative/{{ employee.id }}/">{{ employee }} - {{ employee.line_of_business }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No accounts found.</p>
+{% endif %}
+
+CLIENTS:
+{% if client_list %}
+    <ul>
+    {% for client in client_list %}
+        <li><a href="/account/talent/{{ client.id }}/">{{ client }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Clients found.</p>
+{% endif %}
+<p></p>
+<a href="/account/">Return to index.</a>
