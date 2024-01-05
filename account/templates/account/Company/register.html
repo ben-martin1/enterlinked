@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <title>{% block title %}Register Company for ENTERLINKED {% endblock %}</title>
+</head>
+<body>
+
+                    <div class ="item-content">
+                        <h1>Register a company with ENTERLINKED</h1>
+                    </div>
+                {% if request.method == "POST" %}
+                    <div class="item-content">
+                        Success!
+                    </div>
+                    <div class="item-content">
+                        <a href="/account/company/{{new_company.pk}}/">Visit your new company</a></div>
+                    </div>
+                {% else %}
+                    <div class ="item-content">
+                        <form method="POST" action="" class="company-register-form">
+                            {% csrf_token %}
+                            <p>{{ form.company_name.label }}:</p><p>{{ form.company_name }}</p>
+                            <p>{{ form.dba_name.label }}:</p><p>{{ form.dba_name }}</p>
+                            <p>{{ form.ein.label }}:</p><p>{{ form.ein }}</p>
+                            <button type="submit" name="Update" value="Register" class="register-button">Register Company</button>
+                        </form>
+                    </div>
+                    <div class ="item-content">
+                        <p><a href="/account/">Return to account page.</a></p>
+                    </div>
+            {% endif %}
+        </body>
+{% endblock %}

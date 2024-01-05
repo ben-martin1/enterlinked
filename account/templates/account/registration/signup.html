@@ -1,0 +1,66 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/base.css' %}">
+<span class="title">
+  Sign Up
+</span>
+
+{% block content %}
+<p>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="item-content">
+      {{ form.first_name.label }}
+      {{ form.first_name }}
+    </div>
+    <p></p>
+    <div class="item-content">
+      {{ form.last_name.label }}
+      {{ form.last_name }}
+    </div>
+    <p></p>
+    <div class="item-content">
+      {{ form.email.label }}
+      {{ form.email }}
+    </div>
+    <p></p>
+    <div class="item-content">
+
+      {{ form.password1.label }}
+      {{ form.password1 }}
+    <p>
+      {{ form.password2.label }}
+      {{ form.password2 }}
+    </p>
+    </div>
+    <p></p>
+    <div class="item-content">
+      <p>
+        I am a...
+      </p>
+      <p>
+        {{ form.is_talent.label }}
+        {{ form.is_talent }}
+        
+      </p>
+      <p>
+        {{ form.is_representative.label }}
+        {{ form.is_representative }}
+        
+      </p>
+      <p>
+        {{ form.is_casting.label }}
+        {{ form.is_casting }}
+      </p>
+      <p>
+        {{ form.is_production.label }}
+        {{ form.is_production }}
+    </div>
+    <p>
+      <input type="submit" value="Sign Up" class="register-button" name="Login">
+    </p>
+  </form>
+</p>
+<div class="item-content">
+  <a href="{% url 'login' %}">Log in to ENTERLINKED</a>
+</div>
+{% endblock %}

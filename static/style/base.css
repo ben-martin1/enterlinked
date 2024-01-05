@@ -1,0 +1,103 @@
+body{
+    background-color: rgb(255, 255, 255);
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 50px;
+}
+.left-header{
+    vertical-align: text-top;
+}
+.center-content{
+    align-self: center;
+}
+.title{
+    font-size: x-large;
+    background-color: rgb(34, 34, 90);
+    color:white;
+    border-radius: 8px;
+    padding:2px;
+    margin: 61px;
+}
+.top{
+    width:auto;
+}
+.top-options{
+    text-align: center;
+}
+.main-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.content-container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-left: 150px;
+    border-left: 2px solid black;
+    flex: 1;
+}
+.squish{
+    width: fit-content;
+}
+
+.content{
+    box-sizing:content-box;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding-left: 1px;
+    flex: 1;
+}
+
+.nav-bar{
+    position: absolute;
+    left:10px;
+    width:250px;
+}
+
+.nav-bar a{
+    font-size: x-large;
+    background-color: rgb(34, 34, 90);
+    color:white;
+    border-radius: 10px;
+    padding: 4px;
+    text-decoration: none;
+    margin-left:12px;
+}
+a{
+    color:black;
+}
+.nav-bar-container{
+    display:flex;
+    align-self: stretch;
+    justify-content: center;
+    position: fixed;
+    z-index: 1; 
+}
+
+.item-content {
+    align-self: stretch;
+    margin: 4px;
+    padding: 4px;
+    font-size:medium;
+    border-left: 1px dotted black;
+    border-bottom: 1px dotted black
+}
+
+.register-button{
+    background-color: rgb(34, 34, 90);
+    border: none;
+    color: white;
+    padding: 6px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

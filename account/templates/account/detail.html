@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/base.css' %}">
+{% block title %}
+{{ request.user.first_name }} {{ request.user.last_name }}
+{% endblock %}
+{% block content %}
+<div class="center-content">
+  <div class="item-content">
+    <H1>{{ user.first_name }} {{ user.last_name }}</H1>
+  </div>
+  <div class="item-content">
+    {% if user.profile_picture %}
+    <img src="{{ user.profile_picture.url }}" style="max-width:350px; max-height:400px;" alt="{{ user.first_name }} {{ user.last_name }}">
+    {% else %}
+    <img src=" {% static 'images/default_profile_picture.png' %}" alt="Default Profile Picture">
+    {% endif %}
+  </div>
+</div>
+  
+  {% if user.is_talent %}
+  <div class="talent-info">
+    <div class="item-content">
+      <span class="title">
+        Talent Info:
+      </span>
+        {{ user.first_name }} {% if user.sag_union_status %}- Union Status: {{ user.sag_union_status }} -{% endif %} {% if user.sag_id_number %}- SAG ID {{ user.sag_id_number }}{% endif %}
+        {% if user.user_company %} 
+          <p> Represented by {{ user.user_company }} </p>
+        {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+{% if request.user.is_casting %}
+    Casting Role
+{% endif %}
+
+{% if user.is_representative %}
+  <div class="representative-info">
+  <div class="item-content">
+  <p>
+  <span class="title">
+    Rep Info:
+  </span>
+  {% if user.employer_id is None %}
+    Freelance Representative
+  {% else %}
+    Representative at <a href="/account/company/{{user.employer_id}}">{{ user_company }}</a>
+  {% endif %}
+    {% if request.user.is_authenticated %}
+      {% if request.user.pk == user.pk %} 
+        {% if user.employer_id is None %}
+          <p>Representative - Edit your rep details.</p>
+          <p>Link yourself to a company</p>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+{% endif %}
+</p>
+
+
+  
+<div class="center-content">
+  <div class="item-content">
+    <h1>Update your profile information here.</h1>
+  
+
+
+<div class="center-content">
+  <div class="item-content">
+  <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+      <p>
+      {{ base_update_form.first_name.label }} {{ base_update_form.first_name }}
+      <p>
+      {{ base_update_form.last_name.label }} {{ base_update_form.last_name }}
+      <p>
+      {{ base_update_form.password1.label }} {{ base_update_form.password1 }}
+      <p>
+      {{ base_update_form.date_of_birth.label }} {{ base_update_form.date_of_birth }}
+      <p>
+      {{ base_update_form.is_talent.label }} {{ base_update_form.is_talent }}
+      <p>
+      {{ base_update_form.is_representative.label }} {{ base_update_form.is_representative }}
+      <p>
+      {{ base_update_form.is_casting.label }} {{ base_update_form.is_casting }}
+      <p>
+      {{ base_update_form.is_production.label }} {{ base_update_form.is_production }}
+      <p>
+      {% if user.is_talent %}
+      <p>
+      {{ talent_update_form.sag_id_number.label }} {{ talent_update_form.sag_id_number }}
+      </p>
+      {% endif %}
+      <p>
+      {{ base_update_form.profile_picture.label }} {{ base_update_form.profile_picture}}
+      </p>
+
+      <input type="submit" name="Update" value="Update Info" class="register-button">
+    </form>
+
+<p><a href="/account/">Return to account page</a></p>
+{% endblock %}

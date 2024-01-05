@@ -1,0 +1,63 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style/base.css' %}">
+  <title>{% block title %}Enterlinked{% endblock %}</title>
+</head>
+<body>
+  <main>
+    <div class="header item-content">
+      <div class="left-header">
+        ENTERLINKED.ME
+      </div>
+      <div class="right-header">
+        {% if request.user.profile_picture %}
+        <span>
+          <img src="{{ request.user.profile_picture.url }}" alt="profile picture" style="width:44px; height:50px;">
+        </span>
+        {% else %}
+        <span>
+          <img src="{% static 'images/default_profile_picture.png' %}" alt="profile picture" style="width:34px; height:50px;">
+        </span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="main"></span>
+    {% if request.user.is_authenticated %}
+    <div class="main-container">
+      <div class ="nav-bar-container item-content">
+        <div class="nav-bar">
+          <a href="/account/">Home</a>
+          <p>
+            <a href="/account/{{ request.user.pk }}">Profile</a>
+          </p>
+          {% if request.user.employer_id %}
+          <p>
+            <a href="/account/company/{{ request.user.employer_id }}">Company</a>
+          </p>
+          {% endif %}
+          {% if request.user.user_agency %}
+          <p>
+            <a href="/account/company/{{ request.user.user_agency.id }}">My Rep</a>
+          </p>
+          {% endif %}
+          <p>
+            <a href="{% url 'logout' %}">Log Out</a>
+          </p>
+        </div>
+      </div>
+      <div class="content-container">
+        <div class="content">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    
+  </main>
+</body>
+</html>

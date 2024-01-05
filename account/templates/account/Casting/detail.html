@@ -1,0 +1,9 @@
+{{ casting_director }} -
+{% if project_list %}
+<ul>
+{% for project in project_list %}
+    <li><a href="/audition/{{ project.id }}">{{ project }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endif %} 

@@ -1,23 +1,91 @@
-AGENTS:
-{% if employee_list %}
-    <ul>
-    {% for employee in employee_list %}
-        <li><a href="/account/representative/{{ employee.id }}/">{{ employee }} - {{ employee.line_of_business }}</a></li>
-    {% endfor %}
-    </ul>
+{% extends "base.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style/base.css' %}">
+{% block content %}
+<div class="item-content">
+    <H1>{{ company.company_name }}{% if company.dba_name %}, doing business as {{ company.dba_name }}{% endif %}</H1>
+    </div>
+<div class="item-content">
+    <span class="title">AGENTS:</span>
+        {% if employee_list %}
+        <ul>
+        {% for employee in employee_list %}
+            <li><a href="/account/{{ employee.id }}/">{{ employee.first_name }} {{ employee.last_name }} - {{ employee.line_of_business }}</a></li>
+        {% endfor %}
+        </ul>
 {% else %}
     <p>No accounts found.</p>
 {% endif %}
-
-CLIENTS:
+</div>
+<div class="item-content">
+    <span class="title">CLIENTS:</span>
 {% if client_list %}
     <ul>
     {% for client in client_list %}
-        <li><a href="/account/talent/{{ client.id }}/">{{ client }}</a></li>
+        <li><a href="/account/{{ client.id }}/">{{ client }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No Clients found.</p>
 {% endif %}
-<p></p>
+</div>
+<p>
+{% if request.user.is_authenticated %}
+    {% if request.user.is_talent %}
+    {% if request.user.user_agency == company %}
+    <div class="center-content">
+        <div class="item-content">
+        <p>This agency represents you. Breaklink from agency?</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="submit" value="Breaklink" name="Talent" class="register-button">
+        </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="center-content">
+        <div class="item-content">
+        <p>You are an actor. They are an agency. What more should I say?</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="submit" value="Enterlink" name="Talent" class="register-button">
+        </form>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    {% if request.user.is_representative %}
+        {% if request.user.employer_id == company.pk %}
+        <div class="center-content">
+            <div class="item-content">
+            <p>This is your employer. Break link from company?</p>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="submit" value="Breaklink" name="Representative" class="register-button">
+            </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="center-content">
+            <div class="item-content">
+                <p>Link to this company</p>
+                <form method="POST" action="">
+                {% csrf_token %}
+                <input type="submit" value="Enterlink" name="Representative" class="register-button">
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+{% endif %}
+</p>
+{% if request.user.is_authenticated %}
+{% if request.user.is_talent %}
+
+
+{% endif %}
+{% endif %}
+
 <a href="/account/">Return to index.</a>
+{% endblock %}

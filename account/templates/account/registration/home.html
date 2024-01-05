@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.first_name }}! You are a {{ user.role }}
+  <p>
+    <p><a href="/account/">Account Page</a></p>
+    <p><a href="/audition/">Audition Page</a></p>
+    <p>Update your account info. More info will help you and your reps!</p>
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{ update_form.first_name.label }}
+      {{ update_form.first_name }}
+      <p></p>
+      {{ update_form.last_name.label }}
+      {{ update_form.last_name }}
+      <p></p>
+      {{ update_form.email.label }}
+      {{ update_form.email }}
+      <p></p>
+      {{ update_form.role.label }}
+      {{ update_form.role }}
+      <p></p>
+      {{ update_form.password1.label }}
+      {{ update_form.password1 }}
+      <p></p>
+      {{ update_form.password2.label }}
+      {{ update_form.password2 }}
+    </form>
+  </p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+  <p>
+      <a href="/account/signup"> Sign up </a>
+  </p>
+{% endif %}
+{% endblock %}
